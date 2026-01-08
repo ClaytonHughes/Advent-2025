@@ -1,15 +1,16 @@
 CC = gcc
-CC_FLAGS = -g -Wall -Wextra -Werror
+CC_FLAGS = -g -Wall -Wextra -Werror $(CFLAGS)
 
 C_SOURCES := $(wildcard *.c)
-EXES := $(patsubst %.c, %, $(C_SOURCES))
+EXES := $(patsubst %.c, bin/%, $(C_SOURCES))
 
 .PHONY: clean
 
 all: $(EXES)
 
-%:	%.c
+bin/%:	%.c
+	@mkdir -p bin
 	$(CC) $(CC_FLAGS) -o $@ $<
 
 clean:
-	rm $(EXES)
+	rm -rf ./bin
